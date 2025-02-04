@@ -10,10 +10,10 @@ dotenv.config(); // Load environment variables
 // Configuration
 const app = express();
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET;
-const MONGO_URI = process.env.MONGO_URI;
-
-app.use(express.json());
+const JWT_SECRET = "abcd";
+const MONGO_URI = "mongodb+srv://keeper:keeper@keeperapp.7sxkk.mongodb.net/?retryWrites=true&w=majority&appName=KeeperApp";
+// const MONGO_URI = process.env.MONGO_URI;
+app.use(express.json()); 
 app.use(cors());
 
 // Database Connection
@@ -24,7 +24,7 @@ mongoose
 
 // User Schema
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: true},
   password: { type: String, required: true },
 });
 const User = mongoose.model('User', userSchema);

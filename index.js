@@ -29,6 +29,8 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
+
+
 // Note Schema
 const noteSchema = new mongoose.Schema({
   title: String,
@@ -37,6 +39,9 @@ const noteSchema = new mongoose.Schema({
 });
 const Note = mongoose.model('Note', noteSchema);
 
+app.get("/",(req,res)=>{
+  res.send("Hello from backend")
+})
 // Register User
 app.post('/api/auth/register', async (req, res) => {
   const { username, password } = req.body;

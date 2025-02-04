@@ -12,11 +12,13 @@ const app = express();
 const PORT =  5000;
 const JWT_SECRET = "oudsoiudaiosduoa";
 const MONGO_URI =
-  "mongodb+srv://keeper:keeper@keeperapp.7sxkk.mongodb.net/?retryWrites=true&w=majority&appName=KeeperApp";
+  "mongodb+srv://12345:12345@keeperapp.7sxkk.mongodb.net/?retryWrites=true&w=majority&appName=KeeperApp";
 // const MONGO_URI = "mongodb://localhost:27017/zubair";
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  
+));
 
 // Database Connection
 mongoose
@@ -38,6 +40,10 @@ const noteSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 const Note = mongoose.model("Note", noteSchema);
+
+app.get("/",(req,res)=>{
+  res.send("Hello from Backend")
+})
 
 // Register User
 app.post("/api/auth/register", async (req, res) => {

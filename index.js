@@ -6,19 +6,16 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables
-
+// 
 // Configuration
 const app = express();
-const PORT =  5000;
+const PORT = process.env.PORT || 5000;
 const JWT_SECRET = "oudsoiudaiosduoa";
-const MONGO_URI =
-  "mongodb+srv://12345:12345@keeperapp.7sxkk.mongodb.net/?retryWrites=true&w=majority&appName=KeeperApp";
-// const MONGO_URI = "mongodb://localhost:27017/zubair";
+const MONGO_URI ="mongodb+srv://keeper:keeper@keepernotes.7sxkk.mongodb.net/?retryWrites=true&w=majority&appName=KeeperNotes";
+// const MONGO_URI = "mongodb://localhost:27017/keeper";
 
 app.use(express.json());
-app.use(cors(
-  
-));
+app.use(cors());
 
 // Database Connection
 mongoose
@@ -40,10 +37,6 @@ const noteSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 const Note = mongoose.model("Note", noteSchema);
-
-app.get("/",(req,res)=>{
-  res.send("Hello from Backend")
-})
 
 // Register User
 app.post("/api/auth/register", async (req, res) => {

@@ -15,7 +15,12 @@ const MONGO_URI ="mongodb+srv://keeper:keeper@keepernotes.7sxkk.mongodb.net/?ret
 // const MONGO_URI = "mongodb://localhost:27017/keeper";
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"], // Add your frontend URL here
+    credentials: true,
+  })
+);
 
 // Database Connection
 mongoose
@@ -38,6 +43,10 @@ const noteSchema = new mongoose.Schema({
 });
 const Note = mongoose.model("Note", noteSchema);
 
+app.get("/",(req,res)=>{
+  res.send("Hello from backend")
+})
+
 // Register User
 app.post("/api/auth/register", async (req, res) => {
   const { username, password } = req.body;
@@ -52,7 +61,7 @@ app.post("/api/auth/register", async (req, res) => {
     const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(200).json({ message: "User registered successfully" });
   } catch (err) {
     res
       .status(500)
@@ -118,7 +127,7 @@ app.post("/api/notes/add", authenticateToken, async (req, res) => {
     });
     await newNote.save();
 
-    res.status(201).json({ message: "Note added successfully", note: newNote });
+    res.status(200).json({ message: "Note added successfully", note: newNote });
   } catch (err) {
     res.status(500).json({ message: "Error adding note", error: err.message });
   }
